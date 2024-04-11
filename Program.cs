@@ -9,6 +9,10 @@ builder.Services.AddControllersWithViews();
 builder.Services.AddDbContext<ExpenseTrackerContext>(options =>
 options.UseSqlServer(builder.Configuration.GetConnectionString("ExpenseTrackerConnection")));
 
+//Register Syncfusion license
+Syncfusion.Licensing.SyncfusionLicenseProvider.RegisterLicense("Mgo+DSMBMAY9C3t2UFhhQlJBfVpdXGNWfFN0QXNYflRzcF9CYEwxOX1dQl9nSXpSdkdgXXted3RcQWM=");
+
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -19,6 +23,8 @@ if (!app.Environment.IsDevelopment())
     app.UseHsts();
 }
 
+//Ngo9BigBOggjHTQxAR8/V1NBaF5cXmZCekx3Qnxbf1x0ZFRHal9TTnRbUj0eQnxTdEFjXX5ecndWRGJYVkR+Wg==
+
 app.UseHttpsRedirection();
 app.UseStaticFiles();
 
@@ -28,6 +34,6 @@ app.UseAuthorization();
 
 app.MapControllerRoute(
     name: "default",
-    pattern: "{controller=Home}/{action=Index}/{id?}");
+    pattern: "{controller=Transaction}/{action=AddOrEdit}/");
 
 app.Run();
