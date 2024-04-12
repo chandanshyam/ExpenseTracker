@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using ExpenseTracker.Models;
 
-namespace Expense_Tracker.Controllers
+namespace ExpenseTracker.Controllers
 {
     public class CategoryController : Controller
     {
@@ -23,7 +23,7 @@ namespace Expense_Tracker.Controllers
         {
             return _context.Categories != null ?
                         View(await _context.Categories.ToListAsync()) :
-                        Problem("Entity set 'ApplicationDbContext.Categories'  is null.");
+                        Problem("Entity set 'ExpenseTrackerContext.Categories'  is null.");
         }
 
 
@@ -64,7 +64,7 @@ namespace Expense_Tracker.Controllers
         {
             if (_context.Categories == null)
             {
-                return Problem("Entity set 'ApplicationDbContext.Categories'  is null.");
+                return Problem("Entity set 'ExpenseTrackerContext.Categories'  is null.");
             }
             var category = await _context.Categories.FindAsync(id);
             if (category != null)
