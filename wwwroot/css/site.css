@@ -8,6 +8,20 @@ html {
   }
 }
 
+.text-dark {
+    --bs-text-opacity: 1;
+    color: #fff !important;
+}
+
+.navbar-light .navbar-brand {
+    color: #fff;
+}
+
+.bg-white {
+    --bs-bg-opacity: 1;
+    background-color: #222b33 !important;
+}
+
 html {
     position: relative;
     min-height: 100%;

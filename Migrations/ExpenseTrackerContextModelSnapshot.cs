@@ -44,6 +44,35 @@ namespace ExpenseTracker.Migrations
                     b.ToTable("Categories");
                 });
 
+            modelBuilder.Entity("ExpenseTracker.Models.LoginInfo", b =>
+                {
+                    b.Property<int>("UserPK")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("UserPK"), 1L, 1);
+
+                    b.Property<string>("FullName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("UPass")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("URole")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Uname")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("UserPK");
+
+                    b.ToTable("LoginInfo");
+                });
+
             modelBuilder.Entity("ExpenseTracker.Models.Transaction", b =>
                 {
                     b.Property<int>("TransactionId")
@@ -61,12 +90,20 @@ namespace ExpenseTracker.Migrations
                     b.Property<DateTime>("DateCreated")
                         .HasColumnType("datetime2");
 
+                    b.Property<int?>("LoginInfoUserPK")
+                        .HasColumnType("int");
+
                     b.Property<string>("Note")
                         .HasColumnType("nvarchar(75)");
+
+                    b.Property<int>("UserPK")
+                        .HasColumnType("int");
 
                     b.HasKey("TransactionId");
 
                     b.HasIndex("CategoryId");
+
+                    b.HasIndex("LoginInfoUserPK");
 
                     b.ToTable("Transactions");
                 });
@@ -79,7 +116,13 @@ namespace ExpenseTracker.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("ExpenseTracker.Models.LoginInfo", "LoginInfo")
+                        .WithMany()
+                        .HasForeignKey("LoginInfoUserPK");
+
                     b.Navigation("Category");
+
+                    b.Navigation("LoginInfo");
                 });
 #pragma warning restore 612, 618
         }

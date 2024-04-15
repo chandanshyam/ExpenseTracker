@@ -1,4 +1,5 @@
 using ExpenseTracker.Models;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -12,6 +13,14 @@ options.UseSqlServer(builder.Configuration.GetConnectionString("ExpenseTrackerCo
 //Register Syncfusion license
 Syncfusion.Licensing.SyncfusionLicenseProvider.RegisterLicense("Mgo+DSMBMAY9C3t2UFhhQlJBfVpdXGNWfFN0QXNYflRzcF9CYEwxOX1dQl9nSXpSdkdgXXted3RcQWM=");
 
+
+builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme).AddCookie(Options =>
+{
+    Options.AccessDeniedPath = "/Account/Login";
+    Options.ExpireTimeSpan = TimeSpan.FromMinutes(20);
+    Options.SlidingExpiration = true;
+    Options.Cookie.SameSite = SameSiteMode.Strict;
+});
 
 var app = builder.Build();
 
@@ -34,6 +43,6 @@ app.UseAuthorization();
 
 app.MapControllerRoute(
     name: "default",
-    pattern: "{controller=Dashboard}/{action=Index}/");
+    pattern: "{controller=Account}/{action=Login}/");
 
 app.Run();
